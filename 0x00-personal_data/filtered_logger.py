@@ -2,8 +2,8 @@
 """
 Definition of filter_datum function that returns an obfuscated log message
 """
-import re
 from typing import List
+import re
 import logging
 import os
 import mysql.connector
