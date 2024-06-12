@@ -8,6 +8,7 @@ from uuid import uuid4
 from db import DB
 from user import User
 
+
 def _hash_password(password: str) -> bytes:
     """
     Hashes a password string and returns it in bytes form
