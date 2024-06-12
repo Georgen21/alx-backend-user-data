@@ -2,7 +2,7 @@
 """
 A simple flask app
 """
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, abort
 from auth import Auth
 
 
