@@ -96,6 +96,7 @@ class Auth:
         Return:
             user object if found, else None
         """
+        user = None
         if session_id is None:
             return None
 
@@ -103,7 +104,6 @@ class Auth:
             user = self._db.find_user_by(session_id=session_id)
         except NoResultFound:
             return None
-
         return user
 
     def destroy_session(self, user_id: int) -> None:
@@ -115,8 +115,6 @@ class Auth:
         Return:
             None
         """
-        try:
-            self._db.update_user(user_id, session_id=None)
-        except ValueError:
+        if user_id is None:
             return None
-        return None
+        self._db.update_user(user_id, session_id=None)
