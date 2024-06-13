@@ -2,6 +2,7 @@
 """ Authentication module """
 import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import InvalidRequestError
 from uuid import uuid4
 from typing import Union, TypeVar
 
