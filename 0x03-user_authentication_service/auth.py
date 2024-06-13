@@ -3,7 +3,7 @@
 import bcrypt
 from sqlalchemy.orm.exc import NoResultFound
 from uuid import uuid4
-from typing import Union
+from typing import Union, TypeVar
 
 
 from db import DB
@@ -86,3 +86,37 @@ class Auth:
         session_id = _generate_uuid()
         self._db.update_user(user.id, session_id=session_id)
         return session_id
+
+    def get_user_from_session_id(self, session_id: str) -> Union[None, U]:
+        """
+        Takes a session_id and returns the corresponding user, if one exists,
+        else returns None
+        Args:
+            session_id (str): session id for user
+        Return:
+            user object if found, else None
+        """
+        if session_id is None:
+            return None
+
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+        except NoResultFound:
+            return None
+
+        return user
+
+    def destroy_session(self, user_id: int) -> None:
+        """
+        Take a user_id and destroy that user's session and update their
+        session_id attribute to None
+        Args:
+            user_id (int): user's id
+        Return:
+            None
+        """
+        try:
+            self._db.update_user(user_id, session_id=None)
+        except ValueError:
+            return None
+        return None
